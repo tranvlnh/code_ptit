@@ -5,7 +5,7 @@ int n;
 vector<vector<int>> a;
 vector<int> result;
 vector<int> x;
-int fopt = INT_MIN, f = 0;
+int fopt = INT_MIN, f = 0, cmax = INT_MIN;
 vector<bool> used;
 
 void backtrack(int i) {
@@ -21,7 +21,9 @@ void backtrack(int i) {
       x[i] = j;
       f += a[i][j];
       used[j] = true;
-      backtrack(i + 1);
+      if (f + cmax * (n - i - 1) > fopt) {
+        backtrack(i + 1);
+      }
       used[j] = false;
       f -= a[i][j];
     }
@@ -34,6 +36,7 @@ int main() {
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
       cin >> a[i][j];
+      cmax = max(cmax, a[i][j]);
     }
   }
   x.resize(n);
