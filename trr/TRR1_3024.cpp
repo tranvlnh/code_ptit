@@ -30,6 +30,15 @@ int main() {
   for (int i = 0; i < k; i++) {
     int u, v;
     cin >> u >> v;
+
+    if (u < 1 || u > n || v < 1 || v > n) {
+      cout << 0;
+      return 0;
+    }
+    if (used[v]) {
+      cout << 0;
+      return 0;
+    }
     res[u] = v;
     used[v] = true;
   }
