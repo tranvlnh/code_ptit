@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <climits>
 using namespace std;
 
 int n;
@@ -7,6 +8,7 @@ vector<int> result;
 vector<int> x;
 vector<bool> used;
 long long fopt = LLONG_MAX, f = 0;
+int cmin = INT_MAX;
 
 void backtrack(int i) {
   if (i == n) {
@@ -22,7 +24,7 @@ void backtrack(int i) {
       x[i] = j;
       used[j] = true;
       f += a[i][j];
-      if (f < fopt) {
+      if (f + cmin * (n - i - 1) < fopt) {
         backtrack(i + 1);
       }
       f -= a[i][j];
@@ -40,6 +42,7 @@ int main() {
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
       cin >> a[i][j];
+      cmin = min(cmin, a[i][j]);
     }
   }
 
